@@ -76,17 +76,5 @@ public class RequestHandler {
             return null;
         }
     }
-
-    /**
-     * {
-     *   "apikey": "x3BhWTk2llGOjEKnZBCZWn2RSLILsGYUTWv3JqzzHJnZ",
-     *   "iam_apikey_description": "Auto-generated for key 8288450c-e660-4aca-be61-d5e9a388d67b",
-     *   "iam_apikey_name": "Auto-generated service credentials",
-     *   "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-     *   "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/c4dc3f6cb0324be28ce6b730f373d93a::serviceid:ServiceId-0eadeb89-9f2e-4e2b-aa91-d86e997378c5",
-     *   "url": "https://api.eu-gb.tone-analyzer.watson.cloud.ibm.com/instances/a38502ae-73ea-4f39-a0d6-ec24c9f60156"
-     * }
-     */
-
 }
 
