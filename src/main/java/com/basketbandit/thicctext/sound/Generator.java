@@ -25,11 +25,14 @@ public class Generator {
 
         s.append("V0 I[Piano] ");
         document.getSentences().forEach(sentence -> {
+            log.info("\"" + sentence.getText() + "\"");
+            log.info("Sentence Tone: " + sentence.getTones().get(0).getToneName());
+
             ArrayList<String[]> toneScales = scale.getScaleByTone(sentence.getTones().get(0).getToneName());
             log.info("Tone Scales: " + toneScales.size());
 
             List<String> sentenceScale = Arrays.asList(toneScales.get(new Random().nextInt(toneScales.size())));
-            log.info("Sentence Scale: " + sentenceScale.toString());
+            log.info("Sentence Scale: " + sentenceScale.toString() + "\n");
 
             Arrays.asList(sentence.getText().split(" ")).forEach(word -> {
                 s.append(sentenceScale.get(new Random().nextInt(sentenceScale.size())));
