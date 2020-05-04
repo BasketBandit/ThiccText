@@ -1,6 +1,7 @@
 package com.basketbandit.thicctext.sound;
 
 import com.basketbandit.thicctext.text.Document;
+import com.basketbandit.thicctext.util.CrudeSyllableCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +36,19 @@ public class Generator {
             log.info("Sentence Scale: " + sentenceScale.toString() + "\n");
 
             Arrays.asList(sentence.getText().split(" ")).forEach(word -> {
-                s.append(sentenceScale.get(new Random().nextInt(sentenceScale.size())));
-                s.append(" ");
+                int syllables = CrudeSyllableCalculator.countLonelyVowels(word);
+                for(int i = 0; i < syllables; i++) {
+                    s.append(sentenceScale.get(new Random().nextInt(sentenceScale.size())));
+                    switch(syllables) {
+                        case 1 -> s.append("h");
+                        case 3 -> s.append("i");
+                        case 4 -> s.append("s");
+                        case 5,6,7,8,9,10 -> s.append("t");
+                    }
+                    s.append(" ");
+                }
+
+                log.info(word + " -> " + syllables);
             });
             s.append("Rw | "); // Rw - Rest whole
         });
