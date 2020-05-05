@@ -7,11 +7,15 @@ import com.basketbandit.thicctext.text.Document;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Credentials;
+import org.jfugue.midi.MidiFileManager;
+import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.sound.midi.Sequence;
 import java.io.File;
+import java.io.IOException;
 
 public class ThiccText {
     protected static final Logger log = LoggerFactory.getLogger(ThiccText.class);
@@ -32,9 +36,17 @@ public class ThiccText {
             log.error("An error occurred while running the {} class, message: {}", Launcher.class.getSimpleName(), ex.getMessage(), ex);
         }
 
-        Generator generator = new Generator(document, scale);
-
         Player player = new Player();
-        player.play(generator.generate());
+        Generator generator = new Generator(document, scale);
+        Pattern pattern = new Pattern(generator.generate());
+        Sequence sequence = player.getSequence(pattern);
+
+        try {
+            MidiFileManager.save(sequence, new File(document.getSentences().get(0).getText() + ".midi"));
+        } catch (IOException ex) {
+            log.error("An error occurred while running the {} class, message: {}", Launcher.class.getSimpleName(), ex.getMessage(), ex);
+        }
+
+        player.play(pattern);
     }
 }
